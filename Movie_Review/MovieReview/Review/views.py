@@ -9,6 +9,8 @@ from rest_framework.views import APIView
 from .models import Review
 from .serializers import ReviewSerializer
 from rest_framework.pagination import PageNumberPagination
+from django.db.models import Q
+from .models import Review
 
 @login_required
 def submit_review(request):
@@ -63,3 +65,18 @@ class ReviewView(APIView):
         paginator = self.pagination_class()
         result_page = paginator.paginate_queryset(reviews, request)
         return paginator.get_paginated_response(serializer.data)
+    
+def filter_reviews(title=None, rating=None):
+    movies = Review.objects.all()
+
+    q = Q()
+
+    if title:
+        q &= Q(Movie_title__icontains=title)
+
+    if rating:
+        q &= Q(Rating=rating)
+
+    movies = movies.filter(q)
+
+    return movies 
