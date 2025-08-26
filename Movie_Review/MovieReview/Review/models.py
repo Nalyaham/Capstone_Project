@@ -1,8 +1,8 @@
 from django.db import models
-from django.contrib.auth.models import AbstractUser
 from django.core.validators import MaxValueValidator, MinValueValidator
+from django.db import models
+from django.contrib.auth.models import AbstractUser
 
-# Create your models here.
 class CustomUser(AbstractUser):
 	email = models.EmailField(unique=True)
 
@@ -11,4 +11,4 @@ class Review(models.Model):
 	Review_Content = models.TextField(max_length = 250)
 	Rating = models.IntegerField(validators = [MinValueValidator(1), MaxValueValidator(5)])	
 	user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
-	Created_date = models.DateField()
+	Created_date = models.DateField(auto_now_add=True)
