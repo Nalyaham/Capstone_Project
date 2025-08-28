@@ -10,4 +10,4 @@ class RegisterForm(UserCreationForm):
 class ReviewForm(forms.ModelForm):
     class Meta:
         model = Review
-        fields = ['Movie_title', 'Review_Content', 'Rating', 'User ID', 'Created Date']
+        fields = ['Movie_title', 'Review_Content', 'Rating', 'user']

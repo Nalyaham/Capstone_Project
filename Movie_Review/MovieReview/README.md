@@ -9,13 +9,26 @@ b) The CustomUser model extend AbstractUser class to include email as an attribu
 This application handles user management, review submission, update, deletion, display and search 
 a) User management:
 This is implemented by;
-1. Register form to handle form data from a user 
-2. RegisterView to save a user's information into the system 
+1. Token Retrival 
+2. Registration View 
+To register a user:
+- Use the link http://localhost:8000/api/v1/reviews/register/
+- The JSON is as below;
+{
+    "email": "mich234@alx.com"
+}
 
-b) Review Submitting 
-This is implemented by;
-1. Submit_review which uses ReviewForm to handle form data to create a review 
-2. Login decorator is implemented for higher authentication
+
+b) Submitting a review
+To submit a review;
+- Use the link link http://localhost:8000/api/v1/reviews/submit/
+- The JSON is as below;
+{
+    "user": mih123,
+    "Rating": 4,
+    "Movie_title": "Rango",
+    "Review_Content": "Wonderful"
+}
 
 c) Deleting reveiw 
 This is implemented by;
@@ -24,10 +37,15 @@ This is implemented by;
 3. Login decorator is implemented for higher authentication
 
 c) Updating reveiw 
-This is implemented by;
-1. update_review which uses ReviewForm to handle form data from user. This view updates information requested by the user
-2. get_object_or_404 is used to permitt users to delete their own reviews
-3. Login decorator is implemented for higher authentication
+To update a review 
+- Use the link http://127.0.0.1:8000/api/v1/reviews/reviews/3/update/
+- The JSON is as below for the user of the pk=3
+{
+    "user": mih123,
+    "Rating": 4,
+    "Movie_title": "Man Hunter",
+    "Review_Content": "Wonder"
+}
 
 c) Listing reveiws
 This is implemented by;
