@@ -40,6 +40,16 @@ def submit_review(request):
             review.user = request.user
             review.save()
             return redirect('review_detail')
+        
+class SubmitView(generics.CreateAPIView):
+    queryset= Review.objects.all()
+    serializer_class= ReviewSerializer
+
+    def create(self, request, *args, **kwargs):
+            serializer = self.get_serializer(data=request.data)
+            serializer.is_valid(raise_exception=True)
+            serializer.save()
+            return Response({"detail": "Submission successful"})
 	
         
 @login_required
