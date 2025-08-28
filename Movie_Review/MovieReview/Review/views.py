@@ -9,11 +9,27 @@ from rest_framework.pagination import PageNumberPagination
 from django.db.models import Q
 from django.contrib import messages
 from django.contrib.auth import login
+from rest_framework.response import Response
+from rest_framework import generics 
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.authtoken.models import Token
+from rest_framework.response import Response
+from django.db import IntegrityError
 from rest_framework.exceptions import PermissionDenied
 
+class RegistrationView(generics.CreateAPIView):
+    queryset= CustomUser.objects.all()
+    serializer_class= UserSerializer
+
+    def create(self, request, *args, **kwargs):
+        try:
+            serializer = self.get_serializer(data=request.data)
+            serializer.is_valid(raise_exception=True)
+            serializer.save()
+            return Response({"detail": "Registration successful"})
+        except IntegrityError:
+            return Response({"error": "Username already exists"}, status=400)
 
 @login_required
 def submit_review(request):
