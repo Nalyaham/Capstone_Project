@@ -7,5 +7,4 @@ urlpatterns = [
     path('reviews/<int:pk>/update/', UpdateReview.as_view(), name='update'),
     path('reviews/<int:pk>/delete/', DeleteReview.as_view(), name='delete'),
     path('reviews/', ListReview.as_view(), name='reviews'),
-    path('token/', TokenView.as_view(), name='token')
-    ]
+    path('token/', TokenView.as_view(), name='token'), ]
