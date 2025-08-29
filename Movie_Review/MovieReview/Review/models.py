@@ -10,5 +10,5 @@ class Review(models.Model):
 	Movie_title=models.CharField(max_length =250)
 	Review_Content = models.TextField(max_length = 250)
 	Rating = models.IntegerField(validators = [MinValueValidator(1), MaxValueValidator(5)])	
-	user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
+	user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
 	Created_date = models.DateField(auto_now_add=True)

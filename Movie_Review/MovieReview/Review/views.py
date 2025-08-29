@@ -1,4 +1,3 @@
-
 from .models import Review, CustomUser
 from .serializers import ReviewSerializer, UserSerializer
 from rest_framework.pagination import PageNumberPagination
@@ -39,9 +38,6 @@ class UpdateReview(generics.UpdateAPIView):
     serializer_class = ReviewSerializer 
     lookup_field = 'pk'
 
-    def response(self, serializer):
-        if serializer.instance.user == self.request.user:
-            return Response({"detail": "Submission successful"})
 
 class DeleteReview(generics.DestroyAPIView):
     queryset = Review.objects.all()
@@ -51,6 +47,23 @@ class DeleteReview(generics.DestroyAPIView):
 class ListReview(generics.ListAPIView):
     queryset = Review.objects.all()
     serializer_class = ReviewSerializer
+
+
+class TokenView(ObtainAuthToken):
+    def post(self, request, *args, **kwargs):
+        email = request.data.get('email')
+        user = CustomUser.objects.get(email=email)
+        token = Token.objects.get_or_create(user=user)
+        return Response({
+                'token': token.key,
+                'user_id': user.pk,
+                })
+        
+
+        
+        
+
+
 
     
 
